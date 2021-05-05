@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+  jupyter:
+    restart: always
+    build: ./jupyter
+    # image: continuumio/anaconda3:latest
+    # command: /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir ./notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=./notebooks --ip='*' --port=8888 --no-browser --allow-root"
+    ports:
+      - 8888:8888
+    working_dir: /notebooks
+    volumes:
+      - ./notebooks:/notebooks
+  
+  postgres:
+    restart: always
+    image: postgres:10    
+    environment:      
+      - POSTGRES_USER=${POSTGRES_USER}      
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}      
+      - POSTGRES_DB=${POSTGRES_DB}    
+    volumes:      
+      - ./postgres-data/postgres:/var/lib/postgresql/data    
+    ports:      
+      - "5432:5432"
+
+  app:
+    restart: always
+    image: continuumio/miniconda3:latest
+    command: /bin/bash -c "pip install --upgrade pip && pip install Flask Flask-Pymongo gunicorn && exec gunicorn -b :5000 --access-logfile - --error-logfile - api:app"
+    ports:
+      - 5000:5000
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    depends_on:
+      - postgres
+  
