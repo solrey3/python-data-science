@@ -9,7 +9,6 @@ services:
     # command: /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir ./notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=./notebooks --ip='*' --port=8888 --no-browser --allow-root"
     ports:
       - 8888:8888
-    working_dir: /notebooks
     volumes:
       - ./notebooks:/notebooks
   
