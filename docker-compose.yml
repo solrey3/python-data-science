@@ -27,7 +27,7 @@ services:
   app:
     restart: always
     image: continuumio/miniconda3:latest
-    command: /bin/bash -c "pip install --upgrade pip && pip install Flask Flask-Pymongo gunicorn && exec gunicorn -b :5000 --access-logfile - --error-logfile - api:app"
+    command: /bin/bash -c "pip install --upgrade pip && pip install Flask Flask-Pymongo flask-bootstrap flask-moment gunicorn && exec gunicorn -b :5000 --access-logfile - --error-logfile - api:app"
     ports:
       - 5000:5000
     working_dir: /app

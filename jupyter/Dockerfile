@@ -10,7 +10,7 @@ RUN /opt/conda/bin/conda install -c anaconda sqlalchemy
 RUN /opt/conda/bin/conda install -c anaconda sqlite
 RUN /opt/conda/bin/conda install -c conda-forge pymongo
 RUN pip install --upgrade pip
-RUN pip install Flask Flask-Pymongo bs4 lxml selenium splinter
+RUN pip install flask flask-pymongo flask-bootstrap flask-moment bs4 lxml selenium splinter
 
 # I don't why this takes forever
 # RUN /opt/conda/bin/conda install -c defaults --override-channels psycopg2
